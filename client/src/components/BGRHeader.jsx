@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useRef } from 'react'
 import { assets } from '../assets/assets'
 import { AppContext } from '../context/AppContext'
 import { useNavigate } from 'react-router-dom';
@@ -6,9 +6,17 @@ import { motion } from "motion/react"
 import Loader from './Loader';
 
 const BGRHeader = () => {
-    const { handleFileChange, loading } = useContext(AppContext);
-    const navigate = useNavigate()
+    const { handleFileChange, loading, user, setShowLogin } = useContext(AppContext);
+    const navigate = useNavigate();
+    const fileInputRef = useRef(null);
 
+    const triggerFileChange = (e)=>{
+        if(user && user._id){
+            fileInputRef.current.click()
+        }else{
+            setShowLogin(true)
+        }
+    }
 
     return (
         <motion.div
@@ -25,11 +33,11 @@ const BGRHeader = () => {
                 </h1>
                 <p className='my-6 text-[15px] text-gray-500'>Upload your photo and get a clean, transparent background in seconds — no design skills needed. <br className='max-sm:hidden' /> Perfect for product photos, profile pictures, and more.</p>
                 <div>
-                    <input type="file" name="" id="upload1" hidden onChange={(e) => handleFileChange(e, navigate)} />
-                    <label htmlFor="upload1" className='inline-flex gap-3 px-8 py-3.5 rounded-full cursor-pointer bg-gradient-to-r from-violet-600 to-fuchsia-500 m-auto hover:scale-105 transition-all duration-700 '>
-                        <img src={assets.upload_btn_icon} width={20} alt="" />
-                        <p className='text-white text-sm'>Upload your image</p>
-                    </label>
+                    <input type="file" name="" id="upload1" hidden onChange={(e)=>{ handleFileChange(e, navigate); e.target.value = ''}} ref={fileInputRef} />
+                  <button onClick={triggerFileChange} className='inline-flex gap-3 px-8 py-3.5 rounded-full cursor-pointer bg-gradient-to-r from-violet-600 to-fuchsia-500 m-auto hover:scale-105 transition-all duration-700'>
+                    <img src={assets.upload_btn_icon} width={20} alt="" />
+                     <p className='text-white text-sm'>Upload your image</p>
+                  </button>
                 </div>
             </div>
             {/* Right side */}

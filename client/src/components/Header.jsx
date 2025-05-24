@@ -27,7 +27,7 @@ const Header = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.8 }}
                 className='text-stone-500 inline-flex text-center gap-2 bg-white px-6 py-1 rounded-full border border-neutral-300 mt-8 sm:mt-0'>
-                <p>Type it. See it. Believe it. Neurocanvas Delivers Magic</p>
+                <p className='text-sm'>Type it. See it. Believe it. Neurocanvas Delivers Magic</p>
                 <img src={assets.star_icon} alt="" />
             </motion.div>
 

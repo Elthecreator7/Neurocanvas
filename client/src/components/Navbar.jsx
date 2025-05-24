@@ -61,7 +61,7 @@ const Navbar = () => {
             {/* Mobile Menu Slide-in */}
 
             {mobileMenuOpen && (
-                <div className='fixed top-0 right-0 w-full bg-gradient-to-r from-violet-500 to-fuchsia-400 z-40 transition-all duration-300 ease-in-out h-screen'>
+                <div className='fixed top-0 right-0 w-full bg-gradient-to-r from-violet-500 to-blue-400 z-40 transition-all duration-300 ease-in-out h-screen'>
                     <div className="p-4 flex items-center justify-between border-b border-b-white">
                         <button onClick={() => setmobileMenuOpen(false)} className='flex items-center gap-2 cursor-pointer text-white'>
                             <FaArrowLeft></FaArrowLeft>
@@ -76,18 +76,19 @@ const Navbar = () => {
                         {
                             user ? (
                                 <>
-                                    <Link to='/buy-credit' className='text-white cursor-pointer p-4 hover:bg-gradient-to-r from-purple-600 to-fuchsia-500' ><p >Credits left: {credit}</p></Link>
-                                    <Link to="/bgr-home" onClick={() => setmobileMenuOpen(false)} className='hover:bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white p-4'>BG Remover</Link>
-                                    <div className="hover:bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white p-4 gap-5"><Link to="#" onClick={() => setmobileMenuOpen(false)}>AI Image Editor <span className='text-red-500 italic'>Coming Soon</span></Link></div>
-                                    <div className="hover:bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white p-4 gap-5"><Link to="#" onClick={() => setmobileMenuOpen(false)}>Video Generator <span className='text-red-500 italic'>Coming Soon</span></Link></div>
-                                    <button onClick={() => { logout(); setmobileMenuOpen(false) }} className='hover:bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white p-4 text-start'>Logout</button>
+                                    <Link to='/buy-credit' className='text-white cursor-pointer p-4 hover:bg-gradient-to-r from-violet-600 to-blue-500' ><p >Credits left: {credit}</p></Link>
+                                    <Link to="/bgr-home" onClick={() => setmobileMenuOpen(false)} className='hover:bg-gradient-to-r from-violet-600 to-blue-500 text-white p-4'>BG Remover</Link>
+                                    <div className="hover:bg-gradient-to-r from-violet-600 to-blue-500 text-white p-4 gap-5"><Link to="#" onClick={() => setmobileMenuOpen(false)}>AI Image Editor <span className='text-red-500 italic'>Coming Soon</span></Link></div>
+                                    <div className="hover:bg-gradient-to-r from-violet-600 to-blue-500 text-white p-4 gap-5"><Link to="#" onClick={() => setmobileMenuOpen(false)}>Video Generator <span className='text-red-500 italic'>Coming Soon</span></Link></div>
+                                    <button onClick={() => { logout(); setmobileMenuOpen(false) }} className='hover:bg-gradient-to-r from-violet-600 to-blue-500 text-white p-4 text-start'>Logout</button>
                                 </>
                             ) : (
                                 <>
-                                    <Link to='/buy-credit' onClick={() => setmobileMenuOpen(false)} className='text-white cursor-pointer p-4 hover:bg-gradient-to-r from-purple-600 to-fuchsia-500'>Pricing</Link>
-                                    <Link to='/bgr-home' onClick={() => setmobileMenuOpen(false)} className='text-white cursor-pointer p-4 hover:bg-gradient-to-r from-purple-600 to-fuchsia-500'>BG Remover</Link>
-                                    <Link to='/ai-editor' onClick={() => setmobileMenuOpen(false)} className='text-white cursor-pointer p-4 hover:bg-gradient-to-r from-purple-600 to-fuchsia-500'>AI Image Editor</Link>
-                                    <button onClick={() => { setShowLogin(true); setmobileMenuOpen(false); }} className='text-white cursor-pointer p-4 hover:bg-gradient-to-r from-purple-600 to-fuchsia-500 text-start'>Login</button>
+                                    <Link to='/buy-credit' onClick={() => setmobileMenuOpen(false)} className='text-white cursor-pointer p-4 hover:bg-gradient-to-r from-violet-600 to-blue-500'>Pricing</Link>
+                                    <Link to='/bgr-home' onClick={() => setmobileMenuOpen(false)} className='text-white cursor-pointer p-4 hover:bg-gradient-to-r from-violet-600 to-blue-500'>BG Remover</Link>
+                                    <div className="hover:bg-gradient-to-r from-violet-600 to-blue-500 text-white p-4 gap-5"><Link to="#" onClick={() => setmobileMenuOpen(false)}>AI Image Editor <span className='text-red-500 italic'>Coming Soon</span></Link></div>
+                                    <div className="hover:bg-gradient-to-r from-violet-600 to-blue-500 text-white p-4 gap-5"><Link to="#" onClick={() => setmobileMenuOpen(false)}>Video Generator <span className='text-red-500 italic'>Coming Soon</span></Link></div>
+                                    <button onClick={() => { setShowLogin(true); setmobileMenuOpen(false); }} className='text-white cursor-pointer p-4 hover:bg-gradient-to-r from-violet-600 to-blue-500 text-start'>Login</button>
                                 </>
                             )
                         }

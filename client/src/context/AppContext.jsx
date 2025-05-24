@@ -28,7 +28,6 @@ const AppContextProvider = (props) => {
             localStorage.setItem('token', data.token);
             setShowLogin(false);
             toast.success("Welcome, " + data.user.name);
-            console.log("Google login user:", data.user)
          } else {
             toast.error(data.message)
          }
@@ -107,11 +106,12 @@ const AppContextProvider = (props) => {
    const logout = () => {
       localStorage.removeItem('token');
       setToken('');
-      setUser(null)
+      setUser(null);
+      toast.success("Successfully logged out, hope to see you again soon");
    }
 
    useEffect(() => {
-     loadCreditData();
+      loadCreditData();
    }, [token]);
 
    const value = {

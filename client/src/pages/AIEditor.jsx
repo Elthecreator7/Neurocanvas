@@ -23,10 +23,6 @@ const AIEditor = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log("prompt", prompt);
-        console.log("Image file", imageFile);
-        console.log("user id", user._id);
-        console.log("user", user)
 
         if (!prompt || !imageFile || !user?._id) {
             toast.error("Missing required data. please ensure you are logged in.")

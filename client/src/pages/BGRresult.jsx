@@ -37,7 +37,6 @@ const BGRresult = () => {
             );
             setResultImage(res.data.image);
         } catch (error) {
-            console.log("Upload Error:", error)
             toast.error("Upload Error:", error)
         } finally {
             setLoading(false);

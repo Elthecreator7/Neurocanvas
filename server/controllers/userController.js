@@ -53,12 +53,6 @@ const loginUser = async (req, res) => {
 
         if (isMatch) {
             const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-            console.log("Sending user to the frontend", {
-                name: user.name,
-                email: user.email,
-                avatar: user.avatar,
-                _id: user._id,
-            })
 
             res.json({
                 success: true, token, user: {
@@ -113,12 +107,6 @@ const googleLogin = async (req, res) => {
 
         //Create Jwt token
         const jwToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET)
-        console.log("Sending user to the frontend", {
-            name: user.name,
-            email: user.email,
-            avatar: user.avatar,
-            _id: user._id,
-        })
         res.json({
             success: true,
             googleToken: token,

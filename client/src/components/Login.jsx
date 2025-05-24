@@ -58,7 +58,7 @@ const Login = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 onSubmit={handleSubmit}
-                className='relative bg-white p-10 rounded-xl text-slate-500'>
+                className='relative bg-white p-10 rounded-md text-slate-500'>
                 <h1 className='text-center text-2xl text-neutral-700 font-medium'>{state}</h1>
                 <p className='text-sm text-center'>{state === "Login" ? 'Welcome back, login to continue' : 'Sign up to enjoy the features of Neurocanvas'}</p>
                 {state !== 'Login' &&
