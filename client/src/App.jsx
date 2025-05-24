@@ -13,6 +13,7 @@ import PaymentSuccess from './pages/PaymentSuccess';
 import PaymentFailed from './pages/PaymentFailed';
 import BGRHome from './pages/BGRHome';
 import BGRresult from './pages/BGRresult';
+import AIEditor from './pages/AIEditor';
 
 const App = () => {
   const {showLogin, setShowLogin} = useContext(AppContext)
@@ -34,6 +35,7 @@ const App = () => {
         <Route path='/payment-failed' element= {<PaymentFailed></PaymentFailed>}></Route>
         <Route path='/bgr-home' element= {<BGRHome></BGRHome>}></Route>
         <Route path='/bgr-result' element={<BGRresult></BGRresult>}></Route>
+        <Route path='/ai-editor' element={<AIEditor></AIEditor>}></Route>
       </Routes>
       <Footer></Footer>
     </div>

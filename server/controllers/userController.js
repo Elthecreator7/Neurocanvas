@@ -53,8 +53,19 @@ const loginUser = async (req, res) => {
 
         if (isMatch) {
             const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+            console.log("Sending user to the frontend", {
+                name: user.name,
+                email: user.email,
+                avatar: user.avatar,
+                _id: user._id,
+            })
 
-            res.json({ success: true, token, user: { name: user.name } })
+            res.json({
+                success: true, token, user: {
+                    _id: user._id,
+                    name: user.name
+                }
+            })
         } else {
             return res.json({ success: false, message: "Hmm...That combo doesn't match. Double check your details" })
         }
@@ -106,12 +117,14 @@ const googleLogin = async (req, res) => {
             name: user.name,
             email: user.email,
             avatar: user.avatar,
+            _id: user._id,
         })
         res.json({
             success: true,
             googleToken: token,
             token: jwToken,
             user: {
+                _id: user._id,
                 name: user.name,
                 email: user.email,
                 avatar: user.avatar,
@@ -129,7 +142,7 @@ const userCredits = async (req, res) => {
 
         const user = await userModel.findById(userId)
 
-        res.json({ success: true, credits: user.creditBalance, user: { name: user.name, email:user.email, avatar:user.avatar } })
+        res.json({ success: true, credits: user.creditBalance, user: { name: user.name, email: user.email, avatar: user.avatar, _id: user._id,  } })
     } catch (error) {
         console.log(error.message)
         res.json({ success: false, message: error.message })

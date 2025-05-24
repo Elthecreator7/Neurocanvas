@@ -30,6 +30,7 @@ import image_w_bg from './image_w_bg.png'
 import image_wo_bg from './image_wo_bg.png'
 import google_plus_icon from './google_plus_icon.svg'
 import download_icon2 from './download_icon2.svg'
+import coming_soon from './Coming-Soon.png'
 
 export const assets = {
     logo,
@@ -58,7 +59,8 @@ export const assets = {
     image_w_bg,
     image_wo_bg,
     google_plus_icon,
-    download_icon2
+    download_icon2,
+    coming_soon
 }
 
 export const stepsData = [

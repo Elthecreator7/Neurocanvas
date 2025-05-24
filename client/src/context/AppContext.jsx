@@ -28,6 +28,7 @@ const AppContextProvider = (props) => {
             localStorage.setItem('token', data.token);
             setShowLogin(false);
             toast.success("Welcome, " + data.user.name);
+            console.log("Google login user:", data.user)
          } else {
             toast.error(data.message)
          }
