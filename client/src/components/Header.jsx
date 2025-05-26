@@ -57,7 +57,7 @@ const Header = () => {
                 animate={{ opacity: 1 }}
                 transition={{ default: { duration: 0.5 }, opacity: { delay: 0.8, duration: 1 } }}
                 className='sm:text-lg text-white bg-black hover:bg-purple-800 w-auto mt-6 sm:mt-4 px-12 py-2.5 flex items-center gap-2 rounded-full cursor-pointer'
-                onClick={handleClick}>Generate image
+                onClick={handleClick}>{user ? 'Generate Image' : 'Get Started for free'}
                 <img src={assets.star_group} alt="" className='h-6' />
             </motion.button>
 

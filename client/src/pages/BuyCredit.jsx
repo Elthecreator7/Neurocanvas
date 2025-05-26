@@ -10,14 +10,14 @@ const BuyCredit = () => {
     const { user, token, backendUrl, loadCreditData, setShowLogin } = useContext(AppContext)
 
 
-    const paymentFlutterwave = async (planId)=>{
+    const paymentPaystack = async (planId)=>{
         try {
             
             if(!user){
                 setShowLogin(true)
             }
 
-            const {data} = await axios.post(`${backendUrl}/api/user/flutterwave-pay`, {planId}, {headers: {token}})
+            const {data} = await axios.post(`${backendUrl}/api/user/paystack-pay`, {planId}, {headers: {token}})
 
             if (data.success && data.link) {
                 window.location.href = data.link;
@@ -26,7 +26,8 @@ const BuyCredit = () => {
             }
 
         } catch (error) {
-            toast.error(error.message)
+            console.log("Paystack payment error:", error);
+            toast.error(error.response?.data?.message ||error.message || "Payment error")
         }
     }
 
@@ -47,7 +48,7 @@ const BuyCredit = () => {
                         <p className='mt-3 mb-1 font-semibold'>{item.id}</p>
                         <p className='text-sm'>{item.desc}</p>
                         <p className='mt-6'><span className='text-3xl font-medium'>₦{item.price}</span> / {item.credits} credits</p>
-                        <button className='w-full cursor-pointer bg-gray-800 text-white mt-8 text-sm rounded-md py-2.5 min-w-52' onClick={()=>paymentFlutterwave(item.id)}>{user ? 'Purchase' : 'Get started'}</button>
+                        <button className='w-full cursor-pointer bg-gray-800 text-white mt-8 text-sm rounded-md py-2.5 min-w-52' onClick={()=>paymentPaystack(item.id)}>{user ? 'Purchase' : 'Get started'}</button>
                     </div>
                 ))}
             </div>

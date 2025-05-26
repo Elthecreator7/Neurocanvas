@@ -130,50 +130,193 @@ const userCredits = async (req, res) => {
 
         const user = await userModel.findById(userId)
 
-        res.json({ success: true, credits: user.creditBalance, user: { name: user.name, email: user.email, avatar: user.avatar, _id: user._id,  } })
+        res.json({ success: true, credits: user.creditBalance, user: { name: user.name, email: user.email, avatar: user.avatar, _id: user._id, } })
     } catch (error) {
         console.log(error.message)
         res.json({ success: false, message: error.message })
     }
 }
 
-const paymentFlutterwave = async (req, res) => {
-    try {
+// const paymentFlutterwave = async (req, res) => {
+//     try {
 
+//         const { userId, planId } = req.body;
+
+//         const userData = await userModel.findById(userId)
+
+//         if (!userId || !planId) {
+//             return res.json({ success: false, message: "Missing Details" })
+//         }
+
+//         let credits, plan, amount, date;
+
+//         switch (planId) {
+//             case 'Basic':
+//                 plan = 'Basic'
+//                 credits = 100
+//                 amount = 5000
+//                 break;
+
+//             case 'Advanced':
+//                 plan = 'Advanced'
+//                 credits = 500
+//                 amount = 25000
+//                 break;
+
+//             case 'Business':
+//                 plan = 'Business'
+//                 credits = 5000
+//                 amount = 50000
+//                 break;
+
+//             default:
+//                 return res.json({ success: false, message: 'Plan not found' });
+//         }
+
+//         date = Date.now();
+
+//         const tx_ref = `txn_${uuidv4()}`;
+
+//         const transactionData = {
+//             tx_ref,
+//             userId,
+//             plan,
+//             amount,
+//             credits,
+//             paymentStatus: 'Pending',
+//             date
+//         }
+
+//         const newTransaction = await transactionModel.create(transactionData);
+
+//         const flutterwaveRes = await axios.post('https://api.flutterwave.com/v3/payments', {
+//             tx_ref,
+//             amount,
+//             currency: 'NGN',
+//             redirect_url: `${process.env.FRONTEND_URL}/payment-redirect`,
+//             customer: {
+//                 email: userData.email,
+//                 name: userData.name
+//             },
+//             customization: {
+//                 title: "Buy AI Image Generator Credits",
+//                 description: `${credits} image generation credits`
+//             }
+//         }, {
+//             headers: {
+//                 Authorization: `Bearer ${process.env.FLW_SECRET_KEY}`,
+//                 'Content-Type': 'application/json'
+//             }
+//         }
+//         );
+
+//         const paymentLink = flutterwaveRes.data?.data?.link;
+
+//         res.json({
+//             success: true,
+//             message: "Redirecting to payment...",
+//             link: paymentLink
+//         })
+
+//     } catch (error) {
+//         console.log("Payment initiation error", error.response?.data || error.message)
+//         res.json({ success: false, message: "Payment initiation failed" })
+//     }
+// }
+
+// const verifyFlutterwavePayment = async (req, res) => {
+//     try {
+//         const { transaction_id } = req.body;
+//         if (!transaction_id) {
+//             return res.status(400).send("Missing transaction ID");
+//         }
+
+//         const response = await axios.get(`https://api.flutterwave.com/v3/transactions/${transaction_id}/verify`, {
+//             headers: {
+//                 Authorization: `Bearer ${process.env.FLW_SECRET_KEY}`,
+//             },
+//         });
+
+//         const data = response.data.data;
+
+//         if (data.status === "successful") {
+//             const tx_ref = data.tx_ref;
+
+//             const transaction = await transactionModel.findOneAndUpdate(
+//                 { tx_ref },
+//                 { paymentStatus: 'Paid' },
+//                 { paid: true },
+//                 { new: true }
+//             );
+//             if (!transaction) {
+//                 return res.status(404).send("Transaction not found");
+//             }
+
+//             await userModel.findByIdAndUpdate(transaction.userId, {
+//                 $inc: {
+//                     creditBalance: transaction.credits
+//                 },
+//             });
+
+//             return res.json({
+//                 success: true,
+//                 message: "Payment Verified"
+//             });
+//         } else {
+//             return res.json({
+//                 success: false,
+//                 message: "Payment Failed"
+//             });
+//         }
+//     } catch (error) {
+//         console.log("Payment verification error:", error.message);
+//         return res.json({ success: false, message: error.message })
+//     }
+// };
+
+const paymentPaystack = async (req, res) => {
+    try {
         const { userId, planId } = req.body;
 
-        const userData = await userModel.findById(userId)
-
         if (!userId || !planId) {
-            return res.json({ success: false, message: "Missing Details" })
+            return res.json({
+                success: false,
+                message: "Missing Details",
+            });
         }
 
-        let credits, plan, amount, date;
+        const userData = await userModel.findById(userId);
+        if (!userData) {
+            return res.json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        let credits, plan, amount;
 
         switch (planId) {
             case 'Basic':
-                plan = 'Basic'
-                credits = 100
-                amount = 5000
+                plan = 'Basic';
+                credits = 100;
+                amount = 5000;
                 break;
-
             case 'Advanced':
-                plan = 'Advanced'
-                credits = 500
-                amount = 25000
+                plan = 'Advanced';
+                credits = 1000;
+                amount = 25000;;
                 break;
-
             case 'Business':
-                plan = 'Business'
-                credits = 5000
+                plan = 'Business';
+                credits = 5000;
                 amount = 50000
                 break;
-
             default:
-                return res.json({ success: false, message: 'Plan not found' });
+                return res.json({
+                    success: false,
+                    message: 'Plan not found'
+                })
         }
-
-        date = Date.now();
 
         const tx_ref = `txn_${uuidv4()}`;
 
@@ -184,78 +327,72 @@ const paymentFlutterwave = async (req, res) => {
             amount,
             credits,
             paymentStatus: 'Pending',
-            date
-        }
+            date: Date.now()
+        };
 
-        const newTransaction = await transactionModel.create(transactionData);
+        await transactionModel.create(transactionData);
 
-        const flutterwaveRes = await axios.post('https://api.flutterwave.com/v3/payments', {
-            tx_ref,
-            amount,
-            currency: 'NGN',
-            redirect_url: `${process.env.FRONTEND_URL}/payment-redirect`,
-            customer: {
-                email: userData.email,
-                name: userData.name
-            },
-            customization: {
-                title: "Buy AI Image Generator Credits",
-                description: `${credits} image generation credits`
+        const paystackRes = await axios.post('https://api.paystack.co/transaction/initialize', {
+            email: userData.email,
+            amount: amount * 100,
+            reference: tx_ref,
+            callback_url: `${process.env.FRONTEND_URL}/payment-redirect`,
+            metadata: {
+                userId,
+                plan,
+                credits,
             }
-        }, {
-            headers: {
-                Authorization: `Bearer ${process.env.FLW_SECRET_KEY}`,
-                'Content-Type': 'application/json'
+        },
+            {
+                headers: {
+                    Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+                    'Content-Type': 'application/json'
+                }
             }
-        }
         );
 
-        const paymentLink = flutterwaveRes.data?.data?.link;
+        const paymentLink = paystackRes.data?.data?.authorization_url;
 
         res.json({
             success: true,
             message: "Redirecting to payment...",
             link: paymentLink
-        })
-
+        });
     } catch (error) {
-        console.log("Payment initiation error", error.response?.data || error.message)
-        res.json({ success: false, message: "Payment initiation failed" })
-    }
+        console.log("Paystack payment initiation error:", error.response?.data || error.message);
+        res.json({
+            success: false,
+            message: "Payment initiation failed"
+        })
+    };
 }
 
-const verifyFlutterwavePayment = async (req, res) => {
+const verifyPaystackPayment = async (req, res) => {
     try {
-        const { transaction_id } = req.body;
-        if (!transaction_id) {
-            return res.status(400).send("Missing transaction ID");
+        const { reference } = req.body;
+        if (!reference) {
+            return res.status(400).send("Missing transaction reference");
         }
-
-        const response = await axios.get(`https://api.flutterwave.com/v3/transactions/${transaction_id}/verify`, {
+        const response = await axios.get(`https://api.paystack.co/transaction/verify/${reference}`, {
             headers: {
-                Authorization: `Bearer ${process.env.FLW_SECRET_KEY}`,
+                Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
             },
         });
 
         const data = response.data.data;
-
-        if (data.status === "successful") {
-            const tx_ref = data.tx_ref;
+        if (data.status === "success") {
+            const tx_ref = data.reference;
 
             const transaction = await transactionModel.findOneAndUpdate(
                 { tx_ref },
                 { paymentStatus: 'Paid' },
-                { paid: true },
                 { new: true }
             );
             if (!transaction) {
                 return res.status(404).send("Transaction not found");
             }
-
             await userModel.findByIdAndUpdate(transaction.userId, {
-                $inc: {
-                    creditBalance: transaction.credits
-                },
+                $inc: { creditBalance: transaction.credits }
             });
 
             return res.json({
@@ -269,9 +406,13 @@ const verifyFlutterwavePayment = async (req, res) => {
             });
         }
     } catch (error) {
-        console.log("Payment verification error:", error.message);
-        return res.json({ success: false, message: error.message })
+        console.log("Paystack verification error:", error.message);
+        return res.json({
+            success: false,
+            message: "Payment verification failed"
+        });
     }
 };
 
-export { registerUser, loginUser, googleLogin, userCredits, paymentFlutterwave, verifyFlutterwavePayment }
+
+export { registerUser, loginUser, googleLogin, userCredits, paymentPaystack, verifyPaystackPayment }

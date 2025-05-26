@@ -12,15 +12,15 @@ const PaymentVerify = () => {
 
 
     const verifyPayment = async () => {
-        const transaction_id = searchParams.get('transaction_id')
+        const reference = searchParams.get('reference');
 
-        if (!transaction_id) {
-            toast.error('Transaction ID missing');
+        if (!reference) {
+            toast.error('Transaction reference missing');
             return navigate('/buy-credit')
         }
 
         try {
-            const { data } = await axios.post(`${backendUrl}/api/user/verify-flutterwave`, { transaction_id }, { headers: { token } });
+            const { data } = await axios.post(`${backendUrl}/api/user/verify-paystack`, { reference }, { headers: { token } });
 
             if (data.success) {
                 loadCreditData();
