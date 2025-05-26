@@ -16,6 +16,15 @@ const Header = () => {
         }
     }
 
+    const sampleImages = [
+        assets.sample_img_1,
+        assets.sample_img_2,
+        assets.sample_img_3,
+        assets.sample_img_4,
+        assets.sample_img_5,
+        assets.sample_img_6
+    ];
+
     return (
         <motion.div initial={{ opacity: 0.2, y: 100 }}
             transition={{ duration: 1 }}
@@ -57,16 +66,16 @@ const Header = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1, duration: 1 }}
-                className='flex flex-wrap justify-center mt-7 sm:mt-5 gap-3'>
+                className='flex flex-wrap sm:grid grid-cols-3 justify-center mt-7 sm:mt-5 gap-3'>
                 {
-                    Array(6).fill('').map((item, index) => (
+                    sampleImages.map((imgSrc, index) => (
                         <motion.img
                             whileHover={{ scale: 1.05, duration: 0.1 }}
-                            src={index % 2 === 0 ? assets.sample_img_2 : assets.sample_img_1}
+                            src={imgSrc}
                             alt=""
                             key={index}
                             width={70}
-                            className='rounded hover:scale-105 transition-all duration-300 cursor-pointer max-sm:w-10' />
+                            className='rounded hover:scale-105 transition-all duration-300 cursor-pointer w-60 max-sm:w-20' />
                     ))
                 }
             </motion.div>

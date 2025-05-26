@@ -7,6 +7,10 @@ import star_icon from './star_icon.svg'
 import rating_star from './rating_star.svg'
 import sample_img_1 from './download.png'
 import sample_img_2 from './download (1).png'
+import sample_img_3 from './sample_img_2.png'
+import sample_img_4 from './download (5).png'
+import sample_img_5 from './download (6).png'
+import sample_img_6 from './download (8).png'
 import profile_img_1 from './profile_img_1.png'
 import profile_img_2 from './profile_img_2.png'
 import step_icon_1 from './step_icon_1.svg'
@@ -42,6 +46,10 @@ export const assets = {
     rating_star,
     sample_img_1,
     sample_img_2,
+    sample_img_3,
+    sample_img_4,
+    sample_img_5,
+    sample_img_6,
     email_icon,
     lock_icon,
     cross_icon,
