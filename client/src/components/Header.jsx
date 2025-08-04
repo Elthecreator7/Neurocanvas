@@ -44,7 +44,7 @@ const Header = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4, duration: 2 }}
-                className='text-4xl max-w-[300px]  sm:text-6xl sm:max-w-[590px] mx-auto mt-14 sm:mt-10 text-center'>Turn text to <span className='text-purple-600'>image</span>, in seconds.</motion.h1>
+                className='text-4xl xl:text-6xl 2xl:text-7xl font-semibold text-neutral-700 leading-tight mt-8'>Turn text to <span className='bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent'>image</span> in seconds.</motion.h1>
             <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
