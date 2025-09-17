@@ -1,7 +1,7 @@
-const userModel = require("../models/userModel.js");
-const FormData = require('form-data');
-const axios = require('axios');
-const fs = require('fs');
+import userModel from "../models/userModel.js";
+import FormData from 'form-data'
+import axios from 'axios'
+import fs from 'fs'
 
 const generateImage = async (req, res)=>{
     try {
@@ -186,8 +186,4 @@ const editImage = async (req, res)=>{
 }
 }
 
-module.exports = {
-  generateImage,
-  removeBg,
-  editImage
-};
+export {generateImage, removeBg, editImage}

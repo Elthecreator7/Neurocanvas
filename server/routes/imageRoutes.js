@@ -1,8 +1,8 @@
-const express = require("express");
-const { generateImage, removeBg, editImage } = require("../controllers/imageController.js");
-const userAuth = require("../middlewares/auth.js");
-const upload = require("../middlewares/multer.js");
-const removeBgUserAuth = require("../middlewares/secondAuth.js");
+import express from "express";
+import { generateImage, removeBg, editImage } from "../controllers/imageController.js";
+import userAuth from "../middlewares/auth.js";
+import upload from "../middlewares/multer.js";
+import removeBgUserAuth from "../middlewares/secondAuth.js";
 
 const imageRouter = express.Router()
 
@@ -10,4 +10,4 @@ imageRouter.post('/generate-image', userAuth, generateImage)
 imageRouter.post('/remove-bg', removeBgUserAuth, upload.single('image'), removeBg)
 imageRouter.post('/edit-image', userAuth, upload.single('image'), editImage)
 
-module.exports = imageRouter
+export default imageRouter

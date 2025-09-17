@@ -1,8 +1,11 @@
-import logo from './Neuro4.png'
+import logo from './Neurocanvas_white.png'
+import logo_black from './Neuro4.png'
 import logo_icon from './logo_icon.svg'
-import facebook_icon from './facebook_icon.svg'
-import instagram_icon from './instagram_icon.svg'
-import twitter_icon from './twitter_icon.svg'
+import facebook_icon from './facebook-white4.png'
+import instagram_icon from './instagram-white2.png'
+import twitter_icon from './x-white.png'
+import linkedin_icon from './linkedin-white-icon2.png'
+import youtube_icon from './youtube-white2.png'
 import star_icon from './star_icon.svg'
 import rating_star from './rating_star.svg'
 import sample_img_1 from './download.png'
@@ -38,10 +41,13 @@ import coming_soon from './Coming-Soon.png'
 
 export const assets = {
     logo,
+    logo_black,
     logo_icon,
     facebook_icon,
     instagram_icon,
     twitter_icon,
+    linkedin_icon,
+    youtube_icon,
     star_icon,
     rating_star,
     sample_img_1,

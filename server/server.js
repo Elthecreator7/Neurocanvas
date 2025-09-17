@@ -1,23 +1,20 @@
-const express = require('express')
-const cors = require('cors')
-require('dotenv/config')
-const connectDB = require('./config/mongodb.js')
-const userRouter = require('./routes/userRoutes.js')
-const imageRouter = require('./routes/imageRoutes.js')
+import express from 'express'
+import cors from 'cors'
+import 'dotenv/config'
+import connectDB from './config/mongodb.js'
+import userRouter from './routes/userRoutes.js'
+import imageRouter from './routes/imageRoutes.js'
 
 //App config
 const PORT = process.env.PORT || 4000
 const app = express()
-const corsOptions = {
-    origin: process.env.FRONTEND_URL,
-    credentials: true,
-}
 
 
 //Initialize Middleware
 app.use(express.json())
-app.use(cors(corsOptions))
-connectDB()
+app.use(cors())
+await connectDB()
+
 
 
 //API routes

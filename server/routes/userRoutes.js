@@ -1,6 +1,6 @@
-const express = require("express");
-const { registerUser, loginUser, googleLogin, userCredits, paymentPaystack, verifyPaystackPayment } = require("../controllers/userController.js");
-const userAuth = require("../middlewares/auth.js");
+import express from "express";
+import { registerUser, loginUser, googleLogin, userCredits, paymentPaystack, verifyPaystackPayment } from "../controllers/userController.js";
+import userAuth from "../middlewares/auth.js";
 
 const userRouter = express.Router()
 
@@ -16,4 +16,4 @@ userRouter.post('/verify-paystack', userAuth, verifyPaystackPayment)
 //And the end point for credits looks like this http://localhost:4000/api/user/credits
 
 
-module.exports = userRouter
+export default userRouter

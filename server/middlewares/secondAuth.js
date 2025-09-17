@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken')
+import jwt from 'jsonwebtoken'
 
 const removeBgUserAuth = async (req, res, next) => {
     const {token} = req.headers;
@@ -26,4 +26,4 @@ const removeBgUserAuth = async (req, res, next) => {
     }
 }
 
-module.exports = removeBgUserAuth
+export default removeBgUserAuth

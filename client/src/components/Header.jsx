@@ -1,93 +1,115 @@
-import React, { useContext } from 'react'
-import { assets } from '../assets/assets'
-import { motion } from "motion/react"
-import { AppContext } from '../context/AppContext'
-import { useNavigate } from 'react-router-dom'
+import React, { useContext } from "react";
+import { assets } from "../assets/assets";
+import { motion } from "motion/react";
+import { AppContext } from "../context/AppContext";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const { user, setShowLogin } = useContext(AppContext);
+  const navigate = useNavigate();
 
-    const { user, setShowLogin } = useContext(AppContext);
-    const navigate = useNavigate();
-    const handleClick = () => {
-        if (user) {
-            navigate('/result')
-        } else {
-            setShowLogin(true)
-        }
-    }
+  const handleClick = () => {
+    if (user) navigate("/result");
+    else setShowLogin(true);
+  };
 
-    const sampleImages = [
-        assets.sample_img_1,
-        assets.sample_img_2,
-        assets.sample_img_3,
-        assets.sample_img_4,
-        assets.sample_img_5,
-        assets.sample_img_6
-    ];
+  const sampleImages = [
+    assets.sample_img_1,
+    assets.sample_img_2,
+    assets.sample_img_3,
+    assets.sample_img_4,
+    assets.sample_img_5,
+    assets.sample_img_6,
+  ];
 
-    return (
-        <motion.div initial={{ opacity: 0.2, y: 100 }}
-            transition={{ duration: 1 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className='flex flex-col justify-center items-center text-center'>
-            <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.8 }}
-                className='text-stone-500 inline-flex text-center gap-2 bg-white px-6 py-1 rounded-full border border-neutral-300 mt-8 sm:mt-0'>
-                <p className='text-sm'>Type it. See it. Believe it. Neurocanvas Delivers Magic</p>
-                <img src={assets.star_icon} alt="" />
-            </motion.div>
+  return (
+    <motion.section
+      initial={{ opacity: 0.2, y: 100 }}
+      transition={{ duration: 1 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12"
+    >
+      {/* Grid: text left, images right */}
+      <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-10 md:gap-16">
 
-            <motion.h1
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4, duration: 2 }}
-                className='text-4xl xl:text-6xl 2xl:text-7xl font-semibold text-neutral-700 leading-tight mt-8'>Turn text to <span className='bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent'>image</span> in seconds.</motion.h1>
-            <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.8 }}
-                className='text-center max-w-xl mx-auto mt-7 sm:mt-3'>Neurocanvas is where imagination meets machine magic, type anthing-literally anything and watch it burst to life like a creative genie with a GPU. from 'a cat surfing in space' to 'a robot sipping tea in paris' we have got your weird covered😉</motion.p>
-            <motion.button
+        {/* TEXT COLUMN (left) */}
+        <div className="order-1 md:order-1 text-center md:text-left">
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+            className="inline-flex items-center gap-2 bg-white px-5 py-1.5 rounded-full border border-neutral-300"
+          >
+            <p className="text-sm text-black">
+              Type it. See it. Believe it. Neurocanvas Delivers Magic
+            </p>
+            <img src={assets.star_icon} alt="" />
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4, duration: 1.2 }}
+            className="text-4xl xl:text-6xl 2xl:text-7xl font-semibold text-white leading-tight mt-6"
+          >
+            Turn text to{" "}
+            <span className="bg-gradient-to-r from-purple-800 to-red-800 bg-clip-text text-transparent">
+              image
+            </span>{" "}
+            in seconds.
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.8 }}
+            className="max-w-xl mt-5 text-white"
+          >
+            Neurocanvas is where imagination meets machine magic—type anything
+            and watch it burst to life, from “a cat surfing in space” to “a
+            robot sipping tea in Paris.” We’ve got your weird covered 😉
+          </motion.p>
+
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ default: { duration: 0.5 }, opacity: { delay: 0.8, duration: 1 } }}
+            onClick={handleClick}
+            className="sm:text-lg text-white bg-black hover:bg-purple-800 mt-6 px-8 sm:px-12 py-2.5 inline-flex items-center gap-2 rounded-full"
+          >
+            {user ? "Generate Image" : "Get Started for free"}
+            <img src={assets.star_group} alt="" className="h-6" />
+          </motion.button>
+        </div>
+
+        {/* IMAGES COLUMN (right) */}
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          className="order-2 md:order-2"
+        >
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+            {sampleImages.map((src, i) => (
+              <motion.img
+                key={i}
                 whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ default: { duration: 0.5 }, opacity: { delay: 0.8, duration: 1 } }}
-                className='sm:text-lg text-white bg-black hover:bg-purple-800 w-auto mt-6 sm:mt-4 px-12 py-2.5 flex items-center gap-2 rounded-full cursor-pointer'
-                onClick={handleClick}>{user ? 'Generate Image' : 'Get Started for free'}
-                <img src={assets.star_group} alt="" className='h-6' />
-            </motion.button>
-
-
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1, duration: 1 }}
-                className='flex flex-wrap sm:grid grid-cols-3 justify-center mt-7 sm:mt-5 gap-3'>
-                {
-                    sampleImages.map((imgSrc, index) => (
-                        <motion.img
-                            whileHover={{ scale: 1.05, duration: 0.1 }}
-                            src={imgSrc}
-                            alt=""
-                            key={index}
-                            width={70}
-                            className='rounded hover:scale-105 transition-all duration-300 cursor-pointer w-60 max-sm:w-20' />
-                    ))
-                }
-            </motion.div>
-
-            <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.2, duration: 0.8 }}
-                className='mt-2 text-neutral-600'>Generated Images from Neurocanva</motion.p>
-
+                src={src}
+                alt={`Generated sample ${i + 1}`}
+                className="w-full rounded-lg shadow-sm"
+              />
+            ))}
+          </div>
+          <p className="mt-3 text-center md:text-left text-white">
+            Generated images from Neurocanvas
+          </p>
         </motion.div>
-    )
-}
+      </div>
+    </motion.section>
+  );
+};
 
-export default Header
+export default Header;

@@ -1,10 +1,10 @@
-const userModel = require("../models/userModel.js");
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const transactionModel = require("../models/transactionModel.js");
-const axios = require('axios');
-const { v4: uuidv4 } = require('uuid');
-const { OAuth2Client } = require("google-auth-library");
+import userModel from "../models/userModel.js";
+import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+import transactionModel from "../models/transactionModel.js";
+import axios from 'axios'
+import { v4 as uuidv4 } from 'uuid'
+import { OAuth2Client } from "google-auth-library";
 
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
@@ -417,11 +417,4 @@ const verifyPaystackPayment = async (req, res) => {
 };
 
 
-module.exports = {
-  registerUser,
-  loginUser,
-  googleLogin,
-  userCredits,
-  paymentPaystack,
-  verifyPaystackPayment
-};
+export { registerUser, loginUser, googleLogin, userCredits, paymentPaystack, verifyPaystackPayment }

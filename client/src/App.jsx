@@ -22,7 +22,7 @@ const App = () => {
 
 
   return (
-    <div className='px-4 sm:px-10 md:px-14 lg:px-28 min-h-screen bg-gradient-to-b from-teal-50 to-orange-50'>
+    <div className='px-4 sm:px-10 md:px-14 lg:px-28 min-h-screen bg-gradient-to-tr from-[#ff4411] to-[#7c0fab]'>
      <ToastContainer position='bottom-right'></ToastContainer>
       <Navbar></Navbar>
       {showLogin && <Login></Login>}
