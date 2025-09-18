@@ -50,7 +50,7 @@ const Navbar = () => {
                     </div>
                     {
                         user ? (<div className='flex items-center gap-2 sm:gap-3'>
-                            <button className='flex items-center gap-2 bg-purple-200 px-4 sm:px-6 py-1.5 sm:py-3 rounded-full hover:scale-105 transition-all duration-700'><img src={assets.credit_star} alt="" className='w-7' />
+                            <button className='flex items-center gap-2 bg-purple-500 px-4 sm:px-6 py-1.5 sm:py-3 rounded-full hover:scale-105 transition-all duration-700'><img src={assets.credit_star} alt="" className='w-7' />
                                 <p className='text-xs sm:text-sm font-medium text-white cursor-pointer' onClick={() => navigate('/buy-credit')}>Credit left: {credit}</p>
                             </button>
                             <p className='text-white max-sm:hidden pl-4'>Hi, {user.name}</p>
